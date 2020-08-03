@@ -870,6 +870,7 @@ int main()
 						//redraw display
 						al_clear_to_color(al_map_rgb(185, 180, 135));
 					{
+							//draw board
 						for (int i = 0; i < 6; i++)
 						{
 
@@ -1113,6 +1114,7 @@ int main()
 							al_flip_display();
 						}
 
+						//draw dices
 						unsigned int dice1 = rand() % 6 + 1;
 						unsigned int dice2 = rand() % 6 + 1;
 
@@ -1132,6 +1134,7 @@ int main()
 
 						al_flip_display();
 
+						//draw player
 						float cx = al_get_bitmap_width(ResourceCards[0]) / 2.0;
 						float cy = al_get_bitmap_height(ResourceCards[0]) / 2.0;
 
@@ -1197,6 +1200,7 @@ int main()
 						al_draw_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
 						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
 
+						//draw opponent
 						al_draw_text(font, al_map_rgb(0, 0, 0), 0.775 * WIDTH, 0.75 * HEIGHT, ALLEGRO_ALIGN_LEFT, "PEPITO");
 
 						al_draw_scaled_rotated_bitmap(Roads[OPPONENT], cx_road, cy_road, 0.75 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
@@ -1217,28 +1221,9 @@ int main()
 						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
 
 						al_flip_display();
-
-						float cx_button, cy_button, dx_button, dy_button;
-						cx_button = al_get_bitmap_width(ButtonMain) / 2.0;
-						cy_button = al_get_bitmap_height(ButtonMain) / 2.0;
-
-						dx_button = 0.9 * WIDTH;
-						dy_button = 0.075 * HEIGHT;
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
-						//chequear cuanto va a ocupar la palabra con ese font
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
-						al_flip_display();
 					}
-						chosen = Color_Roads;
+
+						//draw buttons
 						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
 						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
 						//chequear cuanto va a ocupar la palabra con ese font
@@ -1250,6 +1235,8 @@ int main()
 
 						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
 						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
+						chosen = Color_Roads;
+						
 						al_flip_display();
 					break;
 					case 'S': 
@@ -1257,6 +1244,381 @@ int main()
 						al_flip_display();
 						Sleep(100);
 						//redraw display
+						{
+							//draw board
+							for (int i = 0; i < 6; i++)
+							{
+
+								float middle_x = al_get_bitmap_width(Frames[i]) / 2.0;
+								float middle_y = al_get_bitmap_height(Frames[i]) / 2.0;
+
+								float x_scale = (0.3 * WIDTH) / 810;
+								float y_scale = (0.3 * WIDTH) / 810;
+
+								float angle = ToRadians(((i * 60.0) + 180.0));
+
+								float dx = 0, dy = 0;
+								//depende de que posicion sea es donde se dibuja
+								switch (('0' + i))
+								{
+								case '0':
+								{
+									dx = 0.45 * WIDTH; //OK!
+									dy = 0.15 * HEIGHT; //OK!
+								}break;
+								case '1':
+								{
+									dx = 0.686 * WIDTH;
+									dy = 0.263 * HEIGHT;
+								}break;
+								case '2':
+								{
+									dx = 0.736 * WIDTH;
+									dy = 0.619 * HEIGHT;
+								}break;
+								case '3':
+								{
+									dx = 0.549 * WIDTH; //OK!
+									dy = 0.8586 * HEIGHT; //OK!
+								}break;
+								case '4':
+								{
+									dx = 0.312 * WIDTH;
+									dy = 0.7429 * HEIGHT;
+								}break;
+								case '5':
+								{
+									dx = 0.265 * WIDTH;
+									dy = 0.39 * HEIGHT;
+								}break;
+								default: break;
+								}
+
+								//el puerto define que imagen es
+								/*switch (board->all_the_sea_frames[i].getPorts().port1.port)
+								{
+								case ports::ANY:
+								{
+									img = ANY_PORT;
+								}break;
+								case ports::BRICK:
+								{
+									img = BRICK_PORT;
+								}break;
+								case ports::GRAIN:
+								{
+									img = GRAIN_PORT;
+								}break;
+								case ports::LUMBER:
+								{
+									img = WOOD_PORT;
+								}break;
+								case ports::ORE:
+								{
+									img = STONE_PORT;
+								}break;
+								case ports::WOOL:
+								{
+									img = WOOL_PORT;
+								}break;
+								default:
+								{
+
+								}break;
+								}*/
+
+								al_draw_scaled_rotated_bitmap(Frames[i], middle_x, middle_y, dx, dy, x_scale, y_scale, angle, NULL);
+								al_flip_display();
+
+							}
+
+							for (int i = 0; i < TERRAIN_HEXES; i++)
+							{
+
+
+								float middle_x = HEX_WIDTH / 2.0;
+								float middle_y = HEX_HEIGHT / 2.0;
+
+								float x_scale = 102.5 / HEX_WIDTH;
+								float y_scale = 112.5 / HEX_HEIGHT;
+
+								float dx = 0, dy = 0;
+								//depende de que posicion sea es donde se dibuja
+								switch ('A' + i)
+								{
+								case 'A':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'B':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'C':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'D':
+								{
+									dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'E':
+								{
+									dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'F':
+								{
+									dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'G':
+								{
+									dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'H':
+								{
+									dx = 0.5 * WIDTH - 2.0 * 102.5;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'I':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'J':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'K':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'L':
+								{
+									dx = 0.5 * WIDTH + 2.0 * 102.5;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'M':
+								{
+									dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'N':
+								{
+									dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'O':
+								{
+									dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'P':
+								{
+									dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'Q':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								case 'R':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								case 'S':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								default: break;
+								}
+
+								int img = 0;
+								//el recurso define que imagen es
+								/*switch (board->all_the_hexes[i].getResource())
+								{
+								case DESERT:
+								{
+									img = DESERT1;
+								}break;
+								case ORE:
+								{
+									img = ORE1;
+								}break;
+								case GRAIN:
+								{
+									img = GRAIN1;
+								}break;
+								case LUMBER:
+								{
+									img = LUMBER1;
+								}break;
+								case WOOL:
+								{
+									img = WOOL1;
+								}break;
+								case BRICK:
+								{
+									img = BRICK1;
+								}break;
+								default:
+								{
+
+								}break;
+								}*/
+
+								img = rand() % 6;
+
+								al_draw_scaled_rotated_bitmap(Hexes[img], middle_x, middle_y, dx, dy, x_scale, y_scale, 0.0, NULL);
+
+								int img2 = rand() % 10;
+
+								al_draw_scaled_rotated_bitmap(Tokens[img2], al_get_bitmap_width(Tokens[img2]) / 2.0, al_get_bitmap_height(Tokens[img2]) / 2.0, dx, dy, 1.0 / 4.0, 1.0 / 4.0, 0.0, NULL);
+
+								al_flip_display();
+							}
+
+							//draw dices
+							unsigned int dice1 = rand() % 6 + 1;
+							unsigned int dice2 = rand() % 6 + 1;
+
+							float dx1, dy1, dx2, dy2;
+
+							dx1 = 0.9 * WIDTH - 5.0 - al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
+							dx2 = 0.9 * WIDTH + 5.0 + al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
+
+							dy1 = 0.65 * HEIGHT;
+							dy2 = dy1;
+
+							dice1 = rand() % 6 + 1;
+							dice2 = rand() % 6 + 1;
+
+							al_draw_scaled_rotated_bitmap(Dices[dice1 - 1], al_get_bitmap_width(Dices[dice1 - 1]) / 2.0, al_get_bitmap_height(Dices[dice1 - 1]) / 2.0, dx1, dy1, 1.0, 1.0, 0.0, NULL);
+							al_draw_scaled_rotated_bitmap(Dices[dice2 - 1], al_get_bitmap_width(Dices[dice2 - 1]) / 2.0, al_get_bitmap_height(Dices[dice2 - 1]) / 2.0, dx2, dy2, 1.0, 1.0, 0.0, NULL);
+
+							al_flip_display();
+
+							//draw player
+							float cx = al_get_bitmap_width(ResourceCards[0]) / 2.0;
+							float cy = al_get_bitmap_height(ResourceCards[0]) / 2.0;
+
+							float dx = 0.06 * WIDTH;
+							float dy = 0.2 * HEIGHT;
+							for (int i = 0; i < 5; i++)
+							{
+								al_draw_scaled_rotated_bitmap(ResourceCards[i], cx, cy, dx, dy + i * cx * 1.25, 0.4, 0.4, 0.0, NULL);
+
+								al_draw_filled_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(255, 243, 154));
+								al_draw_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(0, 0, 0), 3);
+								switch (i)
+								{
+								case ORE1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case GRAIN1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case WOOL1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case LUMBER1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case BRICK1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								default:break;
+								}
+							}
+							al_flip_display();
+
+
+							float cx_road = al_get_bitmap_width(Roads[PLAYER]) / 2.0;
+							float cy_road = al_get_bitmap_height(Roads[PLAYER]) / 2.0;
+
+							float cx_city = al_get_bitmap_width(Settlements[PLAYER]) / 2.0;
+							float cy_city = al_get_bitmap_height(Settlements[PLAYER]) / 2.0;
+
+							float cx_settlement = al_get_bitmap_width(Houses[PLAYER]) / 2.0;
+							float cy_settlement = al_get_bitmap_height(Houses[PLAYER]) / 2.0;
+
+
+							al_draw_scaled_rotated_bitmap(Roads[PLAYER], cx_road, cy_road, 0.06 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_draw_scaled_rotated_bitmap(Settlements[PLAYER], cx_city, cy_city, 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+
+							al_draw_scaled_rotated_bitmap(Houses[PLAYER], cx_settlement, cy_settlement, 0.06 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							//draw opponent
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.775 * WIDTH, 0.75 * HEIGHT, ALLEGRO_ALIGN_LEFT, "PEPITO");
+
+							al_draw_scaled_rotated_bitmap(Roads[OPPONENT], cx_road, cy_road, 0.75 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_flip_display();
+
+							al_draw_scaled_rotated_bitmap(Settlements[OPPONENT], cx_city, cy_city, 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_draw_scaled_rotated_bitmap(Houses[OPPONENT], cx_settlement, cy_settlement, 0.75 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_flip_display();
+						}
+
+						//draw buttons
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
+						//chequear cuanto va a ocupar la palabra con ese font
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
+
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
+
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
+
+						chosen = Color_Nodes;
+					break;
+					case 'C':
+						al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH * 0.63, HEIGHT * 0.48, ALLEGRO_ALIGN_LEFT, "City");
+						al_flip_display();
+						Sleep(100);
+						//redraw display
+						al_clear_to_color(al_map_rgb(185, 180, 135));
 						{
 							for (int i = 0; i < 6; i++)
 							{
@@ -1626,769 +1988,392 @@ int main()
 							al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
 							al_flip_display();
 						}
-						
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
+						//chequear cuanto va a ocupar la palabra con ese font
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
+
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
+
+						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
+						al_flip_display();
 						chosen = Color_Nodes;
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
-						//chequear cuanto va a ocupar la palabra con ese font
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
-						al_flip_display();
-					break;
-					case 'C':
-						al_draw_text(font, al_map_rgb(255, 255, 255), WIDTH * 0.63, HEIGHT * 0.48, ALLEGRO_ALIGN_LEFT, "City");
-						al_flip_display();
-						Sleep(100);
-						//redraw display
-						al_clear_to_color(al_map_rgb(185, 180, 135));
-					{
-						for (int i = 0; i < 6; i++)
-						{
-
-							float middle_x = al_get_bitmap_width(Frames[i]) / 2.0;
-							float middle_y = al_get_bitmap_height(Frames[i]) / 2.0;
-
-							float x_scale = (0.3 * WIDTH) / 810;
-							float y_scale = (0.3 * WIDTH) / 810;
-
-							float angle = ToRadians(((i * 60.0) + 180.0));
-
-							float dx = 0, dy = 0;
-							//depende de que posicion sea es donde se dibuja
-							switch (('0' + i))
-							{
-							case '0':
-							{
-								dx = 0.45 * WIDTH; //OK!
-								dy = 0.15 * HEIGHT; //OK!
-							}break;
-							case '1':
-							{
-								dx = 0.686 * WIDTH;
-								dy = 0.263 * HEIGHT;
-							}break;
-							case '2':
-							{
-								dx = 0.736 * WIDTH;
-								dy = 0.619 * HEIGHT;
-							}break;
-							case '3':
-							{
-								dx = 0.549 * WIDTH; //OK!
-								dy = 0.8586 * HEIGHT; //OK!
-							}break;
-							case '4':
-							{
-								dx = 0.312 * WIDTH;
-								dy = 0.7429 * HEIGHT;
-							}break;
-							case '5':
-							{
-								dx = 0.265 * WIDTH;
-								dy = 0.39 * HEIGHT;
-							}break;
-							default: break;
-							}
-
-							//el puerto define que imagen es
-							/*switch (board->all_the_sea_frames[i].getPorts().port1.port)
-							{
-							case ports::ANY:
-							{
-								img = ANY_PORT;
-							}break;
-							case ports::BRICK:
-							{
-								img = BRICK_PORT;
-							}break;
-							case ports::GRAIN:
-							{
-								img = GRAIN_PORT;
-							}break;
-							case ports::LUMBER:
-							{
-								img = WOOD_PORT;
-							}break;
-							case ports::ORE:
-							{
-								img = STONE_PORT;
-							}break;
-							case ports::WOOL:
-							{
-								img = WOOL_PORT;
-							}break;
-							default:
-							{
-
-							}break;
-							}*/
-
-							al_draw_scaled_rotated_bitmap(Frames[i], middle_x, middle_y, dx, dy, x_scale, y_scale, angle, NULL);
-							al_flip_display();
-
-						}
-
-						for (int i = 0; i < TERRAIN_HEXES; i++)
-						{
-
-
-							float middle_x = HEX_WIDTH / 2.0;
-							float middle_y = HEX_HEIGHT / 2.0;
-
-							float x_scale = 102.5 / HEX_WIDTH;
-							float y_scale = 112.5 / HEX_HEIGHT;
-
-							float dx = 0, dy = 0;
-							//depende de que posicion sea es donde se dibuja
-							switch ('A' + i)
-							{
-							case 'A':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'B':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'C':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'D':
-							{
-								dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'E':
-							{
-								dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'F':
-							{
-								dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'G':
-							{
-								dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'H':
-							{
-								dx = 0.5 * WIDTH - 2.0 * 102.5;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'I':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'J':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'K':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'L':
-							{
-								dx = 0.5 * WIDTH + 2.0 * 102.5;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'M':
-							{
-								dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'N':
-							{
-								dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'O':
-							{
-								dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'P':
-							{
-								dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'Q':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							case 'R':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							case 'S':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							default: break;
-							}
-
-							int img = 0;
-							//el recurso define que imagen es
-							/*switch (board->all_the_hexes[i].getResource())
-							{
-							case DESERT:
-							{
-								img = DESERT1;
-							}break;
-							case ORE:
-							{
-								img = ORE1;
-							}break;
-							case GRAIN:
-							{
-								img = GRAIN1;
-							}break;
-							case LUMBER:
-							{
-								img = LUMBER1;
-							}break;
-							case WOOL:
-							{
-								img = WOOL1;
-							}break;
-							case BRICK:
-							{
-								img = BRICK1;
-							}break;
-							default:
-							{
-
-							}break;
-							}*/
-
-							img = rand() % 6;
-
-							al_draw_scaled_rotated_bitmap(Hexes[img], middle_x, middle_y, dx, dy, x_scale, y_scale, 0.0, NULL);
-
-							int img2 = rand() % 10;
-
-							al_draw_scaled_rotated_bitmap(Tokens[img2], al_get_bitmap_width(Tokens[img2]) / 2.0, al_get_bitmap_height(Tokens[img2]) / 2.0, dx, dy, 1.0 / 4.0, 1.0 / 4.0, 0.0, NULL);
-
-							al_flip_display();
-						}
-
-						unsigned int dice1 = rand() % 6 + 1;
-						unsigned int dice2 = rand() % 6 + 1;
-
-						float dx1, dy1, dx2, dy2;
-
-						dx1 = 0.9 * WIDTH - 5.0 - al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
-						dx2 = 0.9 * WIDTH + 5.0 + al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
-
-						dy1 = 0.65 * HEIGHT;
-						dy2 = dy1;
-
-						dice1 = rand() % 6 + 1;
-						dice2 = rand() % 6 + 1;
-
-						al_draw_scaled_rotated_bitmap(Dices[dice1 - 1], al_get_bitmap_width(Dices[dice1 - 1]) / 2.0, al_get_bitmap_height(Dices[dice1 - 1]) / 2.0, dx1, dy1, 1.0, 1.0, 0.0, NULL);
-						al_draw_scaled_rotated_bitmap(Dices[dice2 - 1], al_get_bitmap_width(Dices[dice2 - 1]) / 2.0, al_get_bitmap_height(Dices[dice2 - 1]) / 2.0, dx2, dy2, 1.0, 1.0, 0.0, NULL);
-
-						al_flip_display();
-
-						float cx = al_get_bitmap_width(ResourceCards[0]) / 2.0;
-						float cy = al_get_bitmap_height(ResourceCards[0]) / 2.0;
-
-						float dx = 0.06 * WIDTH;
-						float dy = 0.2 * HEIGHT;
-						for (int i = 0; i < 5; i++)
-						{
-							al_draw_scaled_rotated_bitmap(ResourceCards[i], cx, cy, dx, dy + i * cx * 1.25, 0.4, 0.4, 0.0, NULL);
-
-							al_draw_filled_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(255, 243, 154));
-							al_draw_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(0, 0, 0), 3);
-							switch (i)
-							{
-							case ORE1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case GRAIN1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case WOOL1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case LUMBER1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case BRICK1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							default:break;
-							}
-						}
-						al_flip_display();
-
-
-						float cx_road = al_get_bitmap_width(Roads[PLAYER]) / 2.0;
-						float cy_road = al_get_bitmap_height(Roads[PLAYER]) / 2.0;
-
-						float cx_city = al_get_bitmap_width(Settlements[PLAYER]) / 2.0;
-						float cy_city = al_get_bitmap_height(Settlements[PLAYER]) / 2.0;
-
-						float cx_settlement = al_get_bitmap_width(Houses[PLAYER]) / 2.0;
-						float cy_settlement = al_get_bitmap_height(Houses[PLAYER]) / 2.0;
-
-
-						al_draw_scaled_rotated_bitmap(Roads[PLAYER], cx_road, cy_road, 0.06 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_scaled_rotated_bitmap(Settlements[PLAYER], cx_city, cy_city, 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-
-						al_draw_scaled_rotated_bitmap(Houses[PLAYER], cx_settlement, cy_settlement, 0.06 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.775 * WIDTH, 0.75 * HEIGHT, ALLEGRO_ALIGN_LEFT, "PEPITO");
-
-						al_draw_scaled_rotated_bitmap(Roads[OPPONENT], cx_road, cy_road, 0.75 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_flip_display();
-
-						al_draw_scaled_rotated_bitmap(Settlements[OPPONENT], cx_city, cy_city, 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_scaled_rotated_bitmap(Houses[OPPONENT], cx_settlement, cy_settlement, 0.75 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_flip_display();
-
-						float cx_button, cy_button, dx_button, dy_button;
-						cx_button = al_get_bitmap_width(ButtonMain) / 2.0;
-						cy_button = al_get_bitmap_height(ButtonMain) / 2.0;
-
-						dx_button = 0.9 * WIDTH;
-						dy_button = 0.075 * HEIGHT;
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
-						//chequear cuanto va a ocupar la palabra con ese font
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
-
-						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
-						al_flip_display();
-					}
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
-					//chequear cuanto va a ocupar la palabra con ese font
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
-
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
-
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
-					al_flip_display();
-					chosen = Color_Nodes;
 					break;
 					case 'X':
 						//redraw display
 						al_clear_to_color(al_map_rgb(185, 180, 135));
-					{
-						for (int i = 0; i < 6; i++)
 						{
+							for (int i = 0; i < 6; i++)
+							{
 
-							float middle_x = al_get_bitmap_width(Frames[i]) / 2.0;
-							float middle_y = al_get_bitmap_height(Frames[i]) / 2.0;
+								float middle_x = al_get_bitmap_width(Frames[i]) / 2.0;
+								float middle_y = al_get_bitmap_height(Frames[i]) / 2.0;
 
-							float x_scale = (0.3 * WIDTH) / 810;
-							float y_scale = (0.3 * WIDTH) / 810;
+								float x_scale = (0.3 * WIDTH) / 810;
+								float y_scale = (0.3 * WIDTH) / 810;
 
-							float angle = ToRadians(((i * 60.0) + 180.0));
+								float angle = ToRadians(((i * 60.0) + 180.0));
 
-							float dx = 0, dy = 0;
-							//depende de que posicion sea es donde se dibuja
-							switch (('0' + i))
-							{
-							case '0':
-							{
-								dx = 0.45 * WIDTH; //OK!
-								dy = 0.15 * HEIGHT; //OK!
-							}break;
-							case '1':
-							{
-								dx = 0.686 * WIDTH;
-								dy = 0.263 * HEIGHT;
-							}break;
-							case '2':
-							{
-								dx = 0.736 * WIDTH;
-								dy = 0.619 * HEIGHT;
-							}break;
-							case '3':
-							{
-								dx = 0.549 * WIDTH; //OK!
-								dy = 0.8586 * HEIGHT; //OK!
-							}break;
-							case '4':
-							{
-								dx = 0.312 * WIDTH;
-								dy = 0.7429 * HEIGHT;
-							}break;
-							case '5':
-							{
-								dx = 0.265 * WIDTH;
-								dy = 0.39 * HEIGHT;
-							}break;
-							default: break;
+								float dx = 0, dy = 0;
+								//depende de que posicion sea es donde se dibuja
+								switch (('0' + i))
+								{
+								case '0':
+								{
+									dx = 0.45 * WIDTH; //OK!
+									dy = 0.15 * HEIGHT; //OK!
+								}break;
+								case '1':
+								{
+									dx = 0.686 * WIDTH;
+									dy = 0.263 * HEIGHT;
+								}break;
+								case '2':
+								{
+									dx = 0.736 * WIDTH;
+									dy = 0.619 * HEIGHT;
+								}break;
+								case '3':
+								{
+									dx = 0.549 * WIDTH; //OK!
+									dy = 0.8586 * HEIGHT; //OK!
+								}break;
+								case '4':
+								{
+									dx = 0.312 * WIDTH;
+									dy = 0.7429 * HEIGHT;
+								}break;
+								case '5':
+								{
+									dx = 0.265 * WIDTH;
+									dy = 0.39 * HEIGHT;
+								}break;
+								default: break;
+								}
+
+								//el puerto define que imagen es
+								/*switch (board->all_the_sea_frames[i].getPorts().port1.port)
+								{
+								case ports::ANY:
+								{
+									img = ANY_PORT;
+								}break;
+								case ports::BRICK:
+								{
+									img = BRICK_PORT;
+								}break;
+								case ports::GRAIN:
+								{
+									img = GRAIN_PORT;
+								}break;
+								case ports::LUMBER:
+								{
+									img = WOOD_PORT;
+								}break;
+								case ports::ORE:
+								{
+									img = STONE_PORT;
+								}break;
+								case ports::WOOL:
+								{
+									img = WOOL_PORT;
+								}break;
+								default:
+								{
+
+								}break;
+								}*/
+
+								al_draw_scaled_rotated_bitmap(Frames[i], middle_x, middle_y, dx, dy, x_scale, y_scale, angle, NULL);
+								al_flip_display();
+
 							}
 
-							//el puerto define que imagen es
-							/*switch (board->all_the_sea_frames[i].getPorts().port1.port)
-							{
-							case ports::ANY:
-							{
-								img = ANY_PORT;
-							}break;
-							case ports::BRICK:
-							{
-								img = BRICK_PORT;
-							}break;
-							case ports::GRAIN:
-							{
-								img = GRAIN_PORT;
-							}break;
-							case ports::LUMBER:
-							{
-								img = WOOD_PORT;
-							}break;
-							case ports::ORE:
-							{
-								img = STONE_PORT;
-							}break;
-							case ports::WOOL:
-							{
-								img = WOOL_PORT;
-							}break;
-							default:
+							for (int i = 0; i < TERRAIN_HEXES; i++)
 							{
 
-							}break;
-							}*/
 
-							al_draw_scaled_rotated_bitmap(Frames[i], middle_x, middle_y, dx, dy, x_scale, y_scale, angle, NULL);
+								float middle_x = HEX_WIDTH / 2.0;
+								float middle_y = HEX_HEIGHT / 2.0;
+
+								float x_scale = 102.5 / HEX_WIDTH;
+								float y_scale = 112.5 / HEX_HEIGHT;
+
+								float dx = 0, dy = 0;
+								//depende de que posicion sea es donde se dibuja
+								switch ('A' + i)
+								{
+								case 'A':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'B':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'C':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
+								}break;
+								case 'D':
+								{
+									dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'E':
+								{
+									dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'F':
+								{
+									dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'G':
+								{
+									dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
+									dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
+								}break;
+								case 'H':
+								{
+									dx = 0.5 * WIDTH - 2.0 * 102.5;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'I':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'J':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'K':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'L':
+								{
+									dx = 0.5 * WIDTH + 2.0 * 102.5;
+									dy = 0.5 * HEIGHT + 3.0;
+								}break;
+								case 'M':
+								{
+									dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'N':
+								{
+									dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'O':
+								{
+									dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'P':
+								{
+									dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
+									dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
+								}break;
+								case 'Q':
+								{
+									dx = 0.5 * WIDTH - 103.0;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								case 'R':
+								{
+									dx = 0.5 * WIDTH;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								case 'S':
+								{
+									dx = 0.5 * WIDTH + 103.0;
+									dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
+								}break;
+								default: break;
+								}
+
+								int img = 0;
+								//el recurso define que imagen es
+								/*switch (board->all_the_hexes[i].getResource())
+								{
+								case DESERT:
+								{
+									img = DESERT1;
+								}break;
+								case ORE:
+								{
+									img = ORE1;
+								}break;
+								case GRAIN:
+								{
+									img = GRAIN1;
+								}break;
+								case LUMBER:
+								{
+									img = LUMBER1;
+								}break;
+								case WOOL:
+								{
+									img = WOOL1;
+								}break;
+								case BRICK:
+								{
+									img = BRICK1;
+								}break;
+								default:
+								{
+
+								}break;
+								}*/
+
+								img = rand() % 6;
+
+								al_draw_scaled_rotated_bitmap(Hexes[img], middle_x, middle_y, dx, dy, x_scale, y_scale, 0.0, NULL);
+
+								int img2 = rand() % 10;
+
+								al_draw_scaled_rotated_bitmap(Tokens[img2], al_get_bitmap_width(Tokens[img2]) / 2.0, al_get_bitmap_height(Tokens[img2]) / 2.0, dx, dy, 1.0 / 4.0, 1.0 / 4.0, 0.0, NULL);
+
+								al_flip_display();
+							}
+
+							unsigned int dice1 = rand() % 6 + 1;
+							unsigned int dice2 = rand() % 6 + 1;
+
+							float dx1, dy1, dx2, dy2;
+
+							dx1 = 0.9 * WIDTH - 5.0 - al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
+							dx2 = 0.9 * WIDTH + 5.0 + al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
+
+							dy1 = 0.65 * HEIGHT;
+							dy2 = dy1;
+
+							dice1 = rand() % 6 + 1;
+							dice2 = rand() % 6 + 1;
+
+							al_draw_scaled_rotated_bitmap(Dices[dice1 - 1], al_get_bitmap_width(Dices[dice1 - 1]) / 2.0, al_get_bitmap_height(Dices[dice1 - 1]) / 2.0, dx1, dy1, 1.0, 1.0, 0.0, NULL);
+							al_draw_scaled_rotated_bitmap(Dices[dice2 - 1], al_get_bitmap_width(Dices[dice2 - 1]) / 2.0, al_get_bitmap_height(Dices[dice2 - 1]) / 2.0, dx2, dy2, 1.0, 1.0, 0.0, NULL);
+
 							al_flip_display();
 
-						}
+							float cx = al_get_bitmap_width(ResourceCards[0]) / 2.0;
+							float cy = al_get_bitmap_height(ResourceCards[0]) / 2.0;
 
-						for (int i = 0; i < TERRAIN_HEXES; i++)
-						{
+							float dx = 0.06 * WIDTH;
+							float dy = 0.2 * HEIGHT;
+							for (int i = 0; i < 5; i++)
+							{
+								al_draw_scaled_rotated_bitmap(ResourceCards[i], cx, cy, dx, dy + i * cx * 1.25, 0.4, 0.4, 0.0, NULL);
 
-
-							float middle_x = HEX_WIDTH / 2.0;
-							float middle_y = HEX_HEIGHT / 2.0;
-
-							float x_scale = 102.5 / HEX_WIDTH;
-							float y_scale = 112.5 / HEX_HEIGHT;
-
-							float dx = 0, dy = 0;
-							//depende de que posicion sea es donde se dibuja
-							switch ('A' + i)
-							{
-							case 'A':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'B':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'C':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.15 * HEIGHT + 0.295 * FRAME_HEIGHT;
-							}break;
-							case 'D':
-							{
-								dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'E':
-							{
-								dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'F':
-							{
-								dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'G':
-							{
-								dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
-								dy = ((0.15 * HEIGHT + 0.295 * FRAME_HEIGHT) + (0.5 * HEIGHT + 3.0)) / 2.0;
-							}break;
-							case 'H':
-							{
-								dx = 0.5 * WIDTH - 2.0 * 102.5;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'I':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'J':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'K':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'L':
-							{
-								dx = 0.5 * WIDTH + 2.0 * 102.5;
-								dy = 0.5 * HEIGHT + 3.0;
-							}break;
-							case 'M':
-							{
-								dx = ((0.5 * WIDTH - 2.0 * 102.5) + (0.5 * WIDTH - 103.0)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'N':
-							{
-								dx = ((0.5 * WIDTH - 103.0) + 0.5 * WIDTH) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'O':
-							{
-								dx = (0.5 * WIDTH + (0.5 * WIDTH + 103.0)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'P':
-							{
-								dx = ((0.5 * WIDTH + 103.0) + (0.5 * WIDTH + 2.0 * 102.5)) / 2.0;
-								dy = ((0.5 * HEIGHT + 3.0) + (0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT))) / 2.0;
-							}break;
-							case 'Q':
-							{
-								dx = 0.5 * WIDTH - 103.0;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							case 'R':
-							{
-								dx = 0.5 * WIDTH;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							case 'S':
-							{
-								dx = 0.5 * WIDTH + 103.0;
-								dy = 0.8586 * HEIGHT - 1 * (0.295 * FRAME_HEIGHT);
-							}break;
-							default: break;
+								al_draw_filled_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(255, 243, 154));
+								al_draw_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(0, 0, 0), 3);
+								switch (i)
+								{
+								case ORE1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case GRAIN1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case WOOL1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case LUMBER1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								case BRICK1:
+								{
+									al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
+								}break;
+								default:break;
+								}
 							}
+							al_flip_display();
 
-							int img = 0;
-							//el recurso define que imagen es
-							/*switch (board->all_the_hexes[i].getResource())
-							{
-							case DESERT:
-							{
-								img = DESERT1;
-							}break;
-							case ORE:
-							{
-								img = ORE1;
-							}break;
-							case GRAIN:
-							{
-								img = GRAIN1;
-							}break;
-							case LUMBER:
-							{
-								img = LUMBER1;
-							}break;
-							case WOOL:
-							{
-								img = WOOL1;
-							}break;
-							case BRICK:
-							{
-								img = BRICK1;
-							}break;
-							default:
-							{
 
-							}break;
-							}*/
+							float cx_road = al_get_bitmap_width(Roads[PLAYER]) / 2.0;
+							float cy_road = al_get_bitmap_height(Roads[PLAYER]) / 2.0;
 
-							img = rand() % 6;
+							float cx_city = al_get_bitmap_width(Settlements[PLAYER]) / 2.0;
+							float cy_city = al_get_bitmap_height(Settlements[PLAYER]) / 2.0;
 
-							al_draw_scaled_rotated_bitmap(Hexes[img], middle_x, middle_y, dx, dy, x_scale, y_scale, 0.0, NULL);
+							float cx_settlement = al_get_bitmap_width(Houses[PLAYER]) / 2.0;
+							float cy_settlement = al_get_bitmap_height(Houses[PLAYER]) / 2.0;
 
-							int img2 = rand() % 10;
 
-							al_draw_scaled_rotated_bitmap(Tokens[img2], al_get_bitmap_width(Tokens[img2]) / 2.0, al_get_bitmap_height(Tokens[img2]) / 2.0, dx, dy, 1.0 / 4.0, 1.0 / 4.0, 0.0, NULL);
+							al_draw_scaled_rotated_bitmap(Roads[PLAYER], cx_road, cy_road, 0.06 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_draw_scaled_rotated_bitmap(Settlements[PLAYER], cx_city, cy_city, 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+
+							al_draw_scaled_rotated_bitmap(Houses[PLAYER], cx_settlement, cy_settlement, 0.06 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.775 * WIDTH, 0.75 * HEIGHT, ALLEGRO_ALIGN_LEFT, "PEPITO");
+
+							al_draw_scaled_rotated_bitmap(Roads[OPPONENT], cx_road, cy_road, 0.75 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
 
 							al_flip_display();
+
+							al_draw_scaled_rotated_bitmap(Settlements[OPPONENT], cx_city, cy_city, 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_draw_scaled_rotated_bitmap(Houses[OPPONENT], cx_settlement, cy_settlement, 0.75 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
+							al_draw_filled_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
+							al_draw_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
+							al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
+
+							al_flip_display();
+
+							float cx_button, cy_button, dx_button, dy_button;
+							cx_button = al_get_bitmap_width(ButtonMain) / 2.0;
+							cy_button = al_get_bitmap_height(ButtonMain) / 2.0;
+
+							dx_button = 0.9 * WIDTH;
+							dy_button = 0.075 * HEIGHT;
+
+							al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
+							al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
+							//chequear cuanto va a ocupar la palabra con ese font
+							al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+							al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
+
+							al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+							al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
+
+							al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
+							al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
+							al_flip_display();
 						}
-
-						unsigned int dice1 = rand() % 6 + 1;
-						unsigned int dice2 = rand() % 6 + 1;
-
-						float dx1, dy1, dx2, dy2;
-
-						dx1 = 0.9 * WIDTH - 5.0 - al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
-						dx2 = 0.9 * WIDTH + 5.0 + al_get_bitmap_width(Dices[dice1 - 1]) / 2.0;
-
-						dy1 = 0.65 * HEIGHT;
-						dy2 = dy1;
-
-						dice1 = rand() % 6 + 1;
-						dice2 = rand() % 6 + 1;
-
-						al_draw_scaled_rotated_bitmap(Dices[dice1 - 1], al_get_bitmap_width(Dices[dice1 - 1]) / 2.0, al_get_bitmap_height(Dices[dice1 - 1]) / 2.0, dx1, dy1, 1.0, 1.0, 0.0, NULL);
-						al_draw_scaled_rotated_bitmap(Dices[dice2 - 1], al_get_bitmap_width(Dices[dice2 - 1]) / 2.0, al_get_bitmap_height(Dices[dice2 - 1]) / 2.0, dx2, dy2, 1.0, 1.0, 0.0, NULL);
-
-						al_flip_display();
-
-						float cx = al_get_bitmap_width(ResourceCards[0]) / 2.0;
-						float cy = al_get_bitmap_height(ResourceCards[0]) / 2.0;
-
-						float dx = 0.06 * WIDTH;
-						float dy = 0.2 * HEIGHT;
-						for (int i = 0; i < 5; i++)
-						{
-							al_draw_scaled_rotated_bitmap(ResourceCards[i], cx, cy, dx, dy + i * cx * 1.25, 0.4, 0.4, 0.0, NULL);
-
-							al_draw_filled_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(255, 243, 154));
-							al_draw_circle(dx + cx * 0.6, dy + i * cx * 1.25, 10, al_map_rgb(0, 0, 0), 3);
-							switch (i)
-							{
-							case ORE1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case GRAIN1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case WOOL1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case LUMBER1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							case BRICK1:
-							{
-								al_draw_text(font, al_map_rgb(0, 0, 0), dx + cx * 0.6 - 5.0, dy + i * cx * 1.25 - 9.0, ALLEGRO_ALIGN_LEFT, to_string(i).c_str());
-							}break;
-							default:break;
-							}
-						}
-						al_flip_display();
-
-
-						float cx_road = al_get_bitmap_width(Roads[PLAYER]) / 2.0;
-						float cy_road = al_get_bitmap_height(Roads[PLAYER]) / 2.0;
-
-						float cx_city = al_get_bitmap_width(Settlements[PLAYER]) / 2.0;
-						float cy_city = al_get_bitmap_height(Settlements[PLAYER]) / 2.0;
-
-						float cx_settlement = al_get_bitmap_width(Houses[PLAYER]) / 2.0;
-						float cy_settlement = al_get_bitmap_height(Houses[PLAYER]) / 2.0;
-
-
-						al_draw_scaled_rotated_bitmap(Roads[PLAYER], cx_road, cy_road, 0.06 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_scaled_rotated_bitmap(Settlements[PLAYER], cx_city, cy_city, 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-
-						al_draw_scaled_rotated_bitmap(Houses[PLAYER], cx_settlement, cy_settlement, 0.06 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.06 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.06 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.775 * WIDTH, 0.75 * HEIGHT, ALLEGRO_ALIGN_LEFT, "PEPITO");
-
-						al_draw_scaled_rotated_bitmap(Roads[OPPONENT], cx_road, cy_road, 0.75 * WIDTH, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_flip_display();
-
-						al_draw_scaled_rotated_bitmap(Settlements[OPPONENT], cx_city, cy_city, 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH + 0.5 * (cx_settlement + cx_city), 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + 0.5 * (cx_settlement + cx_city) - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_draw_scaled_rotated_bitmap(Houses[OPPONENT], cx_settlement, cy_settlement, 0.75 * WIDTH + cx_settlement * 0.5, 0.925 * HEIGHT, 0.15, 0.15, 0.0, NULL);
-						al_draw_filled_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(255, 243, 154));
-						al_draw_circle(0.75 * WIDTH + cx_settlement * 0.5, 0.86 * HEIGHT, 10, al_map_rgb(0, 0, 0), 3);
-						al_draw_text(font, al_map_rgb(0, 0, 0), 0.75 * WIDTH + cx_settlement * 0.5 - 5.0, 0.86 * HEIGHT - 9.0, ALLEGRO_ALIGN_LEFT, to_string(1).c_str());
-
-						al_flip_display();
-
-						float cx_button, cy_button, dx_button, dy_button;
-						cx_button = al_get_bitmap_width(ButtonMain) / 2.0;
-						cy_button = al_get_bitmap_height(ButtonMain) / 2.0;
-
-						dx_button = 0.9 * WIDTH;
-						dy_button = 0.075 * HEIGHT;
-
 						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
 						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
 						//chequear cuanto va a ocupar la palabra con ese font
@@ -2401,20 +2386,7 @@ int main()
 						al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
 						al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
 						al_flip_display();
-					}
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button, 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button - 7.5, ALLEGRO_ALIGN_LEFT, "Trade");
-					//chequear cuanto va a ocupar la palabra con ese font
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Pass");
-
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 2 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 2 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Build");
-
-					al_draw_scaled_rotated_bitmap(ButtonMain, cx_button, cy_button, dx_button, dy_button + 3 * al_get_bitmap_height(ButtonMain), 0.75, 0.75, 0, NULL);
-					al_draw_text(font, al_map_rgb(0, 100, 95), dx_button - 25, dy_button + 3 * al_get_bitmap_height(ButtonMain) - 7.5, ALLEGRO_ALIGN_LEFT, "Exit");
-					al_flip_display();
-					chosen = Color_Buttons1;
+						chosen = Color_Buttons1;
 					default: break;
 					}
 				}
